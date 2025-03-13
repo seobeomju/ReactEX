@@ -2,11 +2,11 @@ import {create} from "zustand";
 
 const useCouterStore = create ( (set)=>({
     count:123,
-    inc:()=>set((state)=>{
-        return {count: state.count + 1}
+    inc:(amount)=>set((state)=>{
+        return {count: state.count + amount}
     }),
-    dec:()=>set((state)=>{
-        return { count: state.count -1}
+    dec:(amount)=>set((state)=>{
+        return { count: state.count -amount}
     })
 }))
 

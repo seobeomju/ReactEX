@@ -9,8 +9,8 @@ function CountEx() {
             <h1>Count2 Ex</h1>
             <h1>COUNT: {count} </h1>
             <div>
-                <button onClick={inc}>PLUS</button>
-                <button onClick={dec}>MINUS</button>
+                <button onClick={()=>inc(3)}>PLUS</button>
+                <button onClick={()=>dec(2)}>MINUS</button>
             </div>
         </div>
     );
