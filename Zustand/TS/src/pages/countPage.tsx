@@ -1,4 +1,5 @@
 import useCountStore, {CountState} from "../stores/countStore.tsx";
+import TopMenuComponent from "../components/menu/topMenuComponent.tsx";
 
 function CountPage() {
 
@@ -6,6 +7,7 @@ function CountPage() {
 
     return (
         <div>
+            <TopMenuComponent/>
             <div>CountPage { num }</div>
             <div>
                 <button onClick={()=>inc(2)}>INC</button>
