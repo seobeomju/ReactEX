@@ -1,4 +1,5 @@
 import {create} from "zustand";
+import {getCookie, removeCookie, setCookie} from "../util/cookieUtil.tsx";
 
 
 export interface LoginState{
@@ -9,13 +10,14 @@ export interface LoginState{
 
 const useLoginStore
     = create<LoginState>(set =>({
-        user: '',
-        login: username => set(() => {
-            console.log("username" + username   )
-            return {user: username}
-            }),
+        user: ( getCookie('user') as string || ''),
+        login: (username) =>{
+            setCookie("user",username,1)
+            set(() => ({user: username}))
+        } ,
         logout: () =>{
-
+            removeCookie("user")
+            set(()=>({user:''}))
         }
 }))
 
