@@ -1,5 +1,6 @@
 import React from 'react';
 import useCouterStore from "../../stores/useCouterStore.jsx";
+import CountDouble from "./countDouble.jsx";
 
 function CountEx() {
     const {count, inc,dec} = useCouterStore()
@@ -12,6 +13,8 @@ function CountEx() {
                 <button onClick={()=>inc(3)}>PLUS</button>
                 <button onClick={()=>dec(2)}>MINUS</button>
             </div>
+
+            <CountDouble/>
         </div>
     );
 }

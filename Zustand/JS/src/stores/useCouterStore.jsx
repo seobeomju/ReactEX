@@ -7,6 +7,9 @@ const useCouterStore = create ( (set)=>({
     }),
     dec:(amount)=>set((state)=>{
         return { count: state.count -amount}
+    }),
+    makeDouble: () => set( (state) => {
+        return {count: state.count * 2 }
     })
 }))
 
