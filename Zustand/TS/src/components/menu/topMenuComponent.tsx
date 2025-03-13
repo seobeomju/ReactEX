@@ -3,7 +3,7 @@ import useLoginStore from "../../stores/loginStore.tsx";
 
 function TopMenuComponent() {
 
-    const {user} = useLoginStore()
+    const {user,logout} = useLoginStore()
 
     return (
         <div>
@@ -13,6 +13,7 @@ function TopMenuComponent() {
                 {user &&
                 <div>
                     {user}님 반갑습니다.
+                    <button onClick={logout}>로그아웃</button>
                 </div>}
             </div>
 

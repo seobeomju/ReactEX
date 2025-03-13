@@ -10,6 +10,7 @@ export interface LoginState{
 
 const useLoginStore
     = create<LoginState>(set =>({
+        //쿠키 추가 중요!!
         user: ( getCookie('user') as string || ''),
         login: (username) =>{
             setCookie("user",username,1)
