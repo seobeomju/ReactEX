@@ -20,16 +20,22 @@ function CountContainer() {
     const obj = {count: count, plus: plus}
 
     //비동기 호출 불러오기
-    const dispath = useDispatch()
-    const handleClick=()=>{
-        dispath(getProductsList)
-    }
+    //상품 목록이 페이지 다뉘로 변경되는 경우 쓰지마라
+    //SSR이 필요한 경우 쓰지마라
+    // const dispath = useDispatch()
+    // const productResult = useSelector(state => state.products)
+    // const handleClick=()=>{
+    //     dispath(getProductsList())
+    // }
 
     return (
         <CountContext.Provider value={obj}>
             <div>
 
-                <button onClick={handleClick}>GET PRODUCTS</button>
+                {/*<button onClick={handleClick}>GET PRODUCTS</button>*/}
+                {/*{productResult.dtoList.map(product=><li key={product.}></li>)}*/}
+
+
                 Count Container <b>{user.uid}</b>
 
                 <CountMenu></CountMenu>
