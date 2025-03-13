@@ -2,15 +2,15 @@ import {create} from "zustand";
 
 export interface CountState{
     num:number,
-    inc: () => void
+    inc: (amount:number) => void
 }
 
 const useCountStore =
     create<CountState>((set)=>({
         num:0,
-        inc: () => set((state) => {
+        inc: (amount:number) => set((state) => {
             console.log(state)
-            return {num: state.num+1}
+            return {num: state.num+amount}
         })
     }))
 

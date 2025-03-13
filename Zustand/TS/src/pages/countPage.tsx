@@ -8,7 +8,7 @@ function CountPage() {
         <div>
             <div>CountPage { num }</div>
             <div>
-                <button onClick={inc}>INC</button>
+                <button onClick={()=>inc(2)}>INC</button>
             </div>
         </div>
     );
