@@ -9,3 +9,6 @@ interface CartItem {
     product: Product,
     qty:number
 }
+interface Cart{
+    items: CartItem[]
+}

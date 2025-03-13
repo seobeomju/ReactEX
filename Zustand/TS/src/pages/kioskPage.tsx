@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import useCartStore from "../stores/cartStore.tsx";
 
 interface Product {
     pno: number,
@@ -16,6 +17,7 @@ const getProducts = async () => {
 function KioskPage() {
 
     const [produts, setProduts] = useState([])
+    const {items,addCart}=useCartStore()
 
     useEffect(() => {
 
@@ -30,13 +32,22 @@ function KioskPage() {
             <h1>Kiosk Page</h1>
             <div>
                 <ul>
-                    {produts.map((p:Product) => <li key={p.pno}>
-                        <img src={`http://122.34.51.94:8090/api/products/view/s_${p.uploadFileNames[0]}`}/>
+                    {produts.map((p:Product) =>
+                        <li key={p.pno} onClick={()=>{addCart(p)}}>
                         {p.pno} - {p.pname} - {p.price}
                     </li>)}
                 </ul>
             </div>
-
+                <hr/>
+                    <div>Cart Items</div>
+                <hr/>
+            <ul>
+                {items.map((item:CartItem, idx:number)=>
+                    <li key={idx}>
+                        {item.product.pno} - {item.product.pname} - {item.qty}
+                    </li>
+                    )}
+            </ul>
             <div>
             </div>
         </div>
