@@ -13,5 +13,4 @@ function LoginComponent() {
         </div>
     );
 }
-
 export default LoginComponent;
