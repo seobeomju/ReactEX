@@ -3,7 +3,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
-const getProductsList = createAsyncThunk('getProductsListThunk',async()=>{
+export const getProductsList = createAsyncThunk('getProductsListThunk',async()=>{
     const res = await axios.get("http://122.34.51.94:8090/api/products/list")
 
     return res.data
@@ -26,4 +26,4 @@ const productsSlice = createSlice({
     }
 })
 
-export default productsSlice
+export default productsSlice.reducer
