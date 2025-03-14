@@ -20,10 +20,20 @@ function AddPage() {
         addMutation.mutate(sampleState)
     }
 
+    const moveToList=()=>{
+        console.log(addMutation.data)
+        navigate('/todo/list')
+    }
+
     return (
         <div>
-        <div>Todo Add</div>
-        <button onClick={handleClick}>ADD</button>
+            {addMutation.isPending && <h1>처리중입니다...........</h1>}
+            {addMutation.isSuccess&& <h1 onClick={moveToList}>
+                처리완료 {addMutation.data.TNO}
+            </h1>
+            }
+            <div>Todo Add</div>
+            <button onClick={handleClick}>ADD</button>
         </div>
     );
 }
