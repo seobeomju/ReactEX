@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {postTodo} from "../../api/todoAPi.tsx";
 
 const sampleState:TodoAdd = {
@@ -13,15 +13,23 @@ function AddPage() {
     const navigate = useNavigate()
 
     const addMutation = useMutation({
-        mutationFn: (todo:TodoAdd) => postTodo(todo)
+        mutationFn: (todo:TodoAdd) => postTodo(todo),
+        //이거를 추가를 해줘야한다
+        onSuccess: data => {
+            console.log("onSuccess",data)
+        }
     })
 
     const handleClick=()=>{
         addMutation.mutate(sampleState)
     }
 
+    const queryClient = useQueryClient()
+
     const moveToList=()=>{
-        console.log(addMutation.data)
+
+        queryClient.invalidateQueries({queryKey:['todo/list']})
+        //console.log(addMutation.data)
         navigate('/todo/list')
     }
 
