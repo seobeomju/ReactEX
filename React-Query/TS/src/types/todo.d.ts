@@ -7,3 +7,9 @@ interface TodoListDTO {
     complete: boolean,
     dueDate: string | null
 }
+
+interface TodoAdd{
+    title:string,
+    writer:string,
+    dueDate:string
+}
