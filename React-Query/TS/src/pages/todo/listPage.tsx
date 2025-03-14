@@ -12,8 +12,8 @@ function ListPage() {
 
     //일반적인 경우에는 isFetching으로 처리
     const  {isFetching, data} = useQuery<PageResponseDTO<TodoListDTO>>({
-        queryKey: ['todo/list'],
-        queryFn: getTodoList,
+        queryKey: ['todo/list', {page:pageStr, size:sizeStr}],
+        queryFn: ()=>getTodoList(pageStr,sizeStr),
         staleTime: 1000 * 10
     })
     return (
