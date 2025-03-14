@@ -1,26 +1,33 @@
 import TopMenuComponent from "../../components/menu/topMenuComponent.tsx";
 import {useQuery} from "@tanstack/react-query";
+import {useSearchParams} from "react-router";
 import {getTodoList} from "../../api/todoAPi.tsx";
+
 
 function ListPage() {
 
-    //일반적인 경우에는 isFetching으로 처리해라
-    const {isFetching,data} = useQuery<PageRequestDTO<TodoListDTO>>({
+    const [search]=useSearchParams()
+    const pageStr = search.get("page") || "1"
+    const sizeStr=search.get("size") || "10"
+
+    //일반적인 경우에는 isFetching으로 처리
+    const  {isFetching, data} = useQuery<PageResponseDTO<TodoListDTO>>({
         queryKey: ['todo/list'],
         queryFn: getTodoList,
-        staleTime: 1000*10,
-        })
-
+        staleTime: 1000 * 10
+    })
     return (
-
         <div>
-            {isFetching && <h1>Loading.....</h1>}
-            <TopMenuComponent/>
+
+            {isFetching && <h1>Loading.........</h1>}
+
+            <TopMenuComponent></TopMenuComponent>
             <div>Todo List Page</div>
+
             <ul>
-                {data?.dtoList?.map(todo=>
+                {data?.dtoList?.map(todo =>
                     <li key={todo?.tno}>
-                        {todo.tno}- {todo.title}
+                        {todo.tno} - {todo.title}
                     </li>
                 )}
             </ul>

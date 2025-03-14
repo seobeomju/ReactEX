@@ -1,9 +1,9 @@
 import axios from "axios";
 
 
-export async function getTodoList(){
+export async function getTodoList(page:string|number, size:string|number){
 
-    const res = await axios.get('http://122.34.51.94:8090/api/todo/list')
+    const res = await axios.get(`http://122.34.51.94:8090/api/todo/list?page=${page}&size=${size}`)
 
     return res.data
 }
