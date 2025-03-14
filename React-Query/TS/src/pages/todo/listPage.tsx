@@ -5,8 +5,9 @@ import {getTodoList} from "../../api/todoAPi.tsx";
 function ListPage() {
 
     useQuery({
-        queryKey: [],
-        queryFn: getTodoList
+        queryKey: ['todo/list'],
+        queryFn: getTodoList,
+        staleTime: 1000*10,
         })
 
     return (
