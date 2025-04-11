@@ -1,13 +1,14 @@
 
 
-function AboutPage() {
+function AboutPage () {
 
     return (
-        <div> 
+        <div>
+            <div className={'text-4xl'}>About Page</div>
 
-            <div className = {'text-4xl'}>About Pagd</div>
         </div>
     )
+
 }
 
-export default AboutPage;
+export default AboutPage
