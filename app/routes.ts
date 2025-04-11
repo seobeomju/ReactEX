@@ -1,4 +1,7 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import {type RouteConfig, index, route} from "@react-router/dev/routes";
+import {lazy} from "react";
+
+const TodoAdd = lazy(() => import("./routes/todo/addPage"));
 
 export default [
     index("routes/home.tsx"),
@@ -7,4 +10,5 @@ export default [
         route("list",'routes/todo/listPage.tsx'),
         route("add",'routes/todo/addPage.tsx')
     ])
+
 ] satisfies RouteConfig;
