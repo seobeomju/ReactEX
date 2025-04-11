@@ -1,10 +1,10 @@
 import React from 'react';
 import TodoListComponent from '~/components/todo/listComponent';
-import { useStore } from '~/store/useCountStore';
+import { useCountStore } from '~/store/useCountStore';
  
  function TodoListPage() {
 
-    const { count, inc } = useStore()
+    const { count, inc } = useCountStore()
 
 
      return (
