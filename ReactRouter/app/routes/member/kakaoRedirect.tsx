@@ -1,11 +1,23 @@
-import React from 'react';
-import { useSearchParams } from 'react-router';
+import { log } from 'console';
+import React, { useEffect } from 'react';
+import { data, useSearchParams } from 'react-router';
+import { getAccessToken } from '~/api/kakaoAPI';
  
  function KakaoRedirect() {
 
     const [searchParms] = useSearchParams()
     //code = afsafsdvef
     const authCode = searchParms.get('code')
+
+    useEffect(()=>{
+
+        if(authCode){
+            getAccessToken(authCode).then((data) => {
+                console.log(data)
+            });
+        }
+    },[authCode])
+
 
     if(!authCode){
         return (<div>로그인 실패</div>)
