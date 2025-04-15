@@ -10,3 +10,9 @@ export async function testTodoList(page:string, size:string ) {
     return res.data
 
 }
+
+export async function testTodoAdd(todo:TodoAdd) {
+
+    const res = await axios.post(host, )
+
+}
