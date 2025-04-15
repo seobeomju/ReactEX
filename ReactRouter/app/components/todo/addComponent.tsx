@@ -1,9 +1,10 @@
+
 import React, {type FormEvent, useRef} from "react";
 import {testTodoAdd, testTodoAddForm} from "~/api/todoAPI";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import LoadingComponent from "../common/loadingComponent";
-import ResultComponent from "../common/resultComponent";
-import { useNavigate } from "react-router";
+import LoadingComponent from "~/components/common/loadingComponent";
+import ResultComponent from "~/components/common/resultComponent";
+import {useNavigate} from "react-router";
 
 function TodoAddComponent() {
 
@@ -16,8 +17,7 @@ function TodoAddComponent() {
     const addMutation = useMutation({
         mutationFn: testTodoAddForm,
         onSuccess: (data) => {
-         
-            query.invalidateQueries({queryKey: ['todos']})
+            query.invalidateQueries({queryKey: ['todos'] })
         }
     })
 
@@ -90,6 +90,18 @@ function TodoAddComponent() {
                         required={true}
                     />
                 </div>
+                <div>
+                    <label htmlFor="writer" className="block text-sm font-medium text-gray-600 mb-1">
+                        첨부파일
+                    </label>
+                    <input
+                        name="file"
+                        id="writer"
+                        type="file"
+                        className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+                        multiple={true}
+                    />
+                </div>
 
                 <button
                     type="submit"
@@ -99,10 +111,10 @@ function TodoAddComponent() {
                 </button>
             </form>
 
-            {addMutation.isPending && <LoadingComponent isLoading={addMutation.isPending}/>}
-            {addMutation.data && <ResultComponent msg={'등록완료'} closeFn={()=>{
+            {addMutation.isPending && <LoadingComponent isLoading={addMutation.isPending}  />}
+            {addMutation.data && <ResultComponent msg={'등록완료'} closeFn={() => {
                 navigate("/todo/list")
-            }}/>}
+            }}/> }
         </div>
     );
 }
