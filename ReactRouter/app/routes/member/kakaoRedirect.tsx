@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router';
     const authCode = searchParms.get('code')
 
     if(!authCode){
-        return (<div>로그인 실패패</div>)
+        return (<div>로그인 실패</div>)
     }
 
      return (
