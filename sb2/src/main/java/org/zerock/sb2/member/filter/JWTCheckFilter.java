@@ -1,5 +1,6 @@
 package org.zerock.sb2.member.filter;
 
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,14 +20,17 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
 
-    public static enum JWTErrorCode{
+    public enum JWTErrorCode {
 
-        NO_ACCESS_TOKEN(401, "No access token");
+        NO_ACCESS_TOKEN(401, "No access token"),
+        EXPIRED_TOKEN(401, "Expired token"),
+        BAD_SIGNATURE(401, "Bad signature"),
+        MALFORMED_TOKEN(401, "Malformed token");
 
         private int code;
         private String message;
 
-        JWTErrorCode(int code, String message){
+        JWTErrorCode(int code, String message) {
             this.code = code;
             this.message = message;
         }
@@ -39,17 +43,24 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     }
 
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
-        log.info("-----------shouldNotFilter----------");
+        log.info("------shouldNotFilter---------");
+
+        if(request.getServletPath().startsWith("/api/v1/member/")) {
+            return true;
+        }
+
         //부정의 부정 -> 긍정
         return false;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("-----------doFilterInternal----------");
+
+        log.info("------doFilterInternal---------");
 
         log.info("requestURI: " + request.getRequestURI());
 
@@ -62,22 +73,31 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             handleException(response, JWTErrorCode.NO_ACCESS_TOKEN);
             return;
         }
-
-        String accsToken = headerStr.substring(7);
+        String accessToken = headerStr.substring(7);
 
         try {
-            jwtUtil.validateToken(accsToken);
-        }catch (Exception e){
-            log.error("============================================");
-            log.error(e.getMessage());
+            jwtUtil.validateToken(accessToken);
+            filterChain.doFilter(request, response);
+
+        } catch (Exception e) {
+            log.error("===========================");
+            String message = e.getMessage();
+            if(message.startsWith("JWT signature")){
+                handleException(response, JWTErrorCode.BAD_SIGNATURE);
+            }else if(message.startsWith("Malformed")){
+                handleException(response, JWTErrorCode.MALFORMED_TOKEN);
+            }else if(message.startsWith("JWT expired")){
+                handleException(response, JWTErrorCode.EXPIRED_TOKEN);
+            }
         }
 
-        filterChain.doFilter(request, response);
+
+
     }
 
-    private void handleException(HttpServletResponse response,JWTErrorCode errorCode) throws IOException {
+    private void handleException(HttpServletResponse response, JWTErrorCode errorCode) throws IOException {
         response.setStatus(errorCode.getCode());
-        response.setContentType(errorCode.getMessage());
+        response.setContentType("application/json");
         response.getWriter().println("{\"error\": \"" + errorCode.getMessage() + "\"}");
     }
 
