@@ -19,6 +19,26 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
 
+    public static enum JWTErrorCode{
+
+        NO_ACCESS_TOKEN(401, "No access token");
+
+        private int code;
+        private String message;
+
+        JWTErrorCode(int code, String message){
+            this.code = code;
+            this.message = message;
+        }
+        public int getCode() {
+            return code;
+        }
+        public String getMessage() {
+            return message;
+        }
+
+    }
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
