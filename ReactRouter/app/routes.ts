@@ -10,6 +10,8 @@ export default [
         route("list",'routes/todo/listPage.tsx'),
         route("add",'routes/todo/addPage.tsx')
     ]),
-    route('/member/login','routes/member/loginPage.tsx'),
-    route('/member/kakao','routes/member/kakaoRedirect.tsx')
+    route('/member/login', 'routes/member/loginPage.tsx'),
+    route('/member/kakao', 'routes/member/kakaoRedirect.tsx'),
+
+
 ] satisfies RouteConfig;

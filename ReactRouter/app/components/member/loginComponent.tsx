@@ -1,6 +1,6 @@
 import React, {type ChangeEvent, type FormEvent, useState} from "react";
 import {getToken} from "~/api/memberAPI";
-import { setCookie } from "~/util/cookieUtil";
+import {setCookie} from "~/util/cookieUtil";
 
 
 const LoginComponent = () => {
@@ -17,7 +17,8 @@ const LoginComponent = () => {
             const refreshToken = res[1]
 
             setCookie('access_token', accessToken,1)
-            setCookie('refresh_Token',refreshToken,7)
+            setCookie('refresh_token', refreshToken, 7)
+
         })
     };
 

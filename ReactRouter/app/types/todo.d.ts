@@ -8,7 +8,7 @@ interface Todo {
     modDate? : Date | null
 }
 
-interface TodoAdd{
+interface TodoAdd {
     title: string,
-    writer: string
+    writer: string,
 }
