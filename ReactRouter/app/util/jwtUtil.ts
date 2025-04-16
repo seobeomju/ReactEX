@@ -1,5 +1,4 @@
 import axios, {AxiosError, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig} from "axios";
-import { getToken } from "~/api/memberAPI";
 import {getCookie} from "~/util/cookieUtil";
 
 const jwtAxios = axios.create()
@@ -40,39 +39,45 @@ const responseFail = (err: AxiosError) => {
     //401 unauthorized
     if (err.status === 401) {
         const msg = getErrorMsg(err)
-        //msg Expired token인 경우에는 refresh 이용해서 다시한번 시도 --자동으로 조용히 slient refreshing
-
-        if(msg == 'Expired token'){
+        //msg Expired token 인 경우에는 refresh 이용해서 다시한번 시도 -- 자동으로 조용히 slient refreshing
+        if(msg ==='Expired token'){
             console.log("token expired so refreshing tokens")
             refreshTokens(err.config)
         }
+
+        return Promise.reject(err);
     }
     return Promise.reject(err);
 }
 
-function refreshTokens(config: InternalAxiosRequestConfig|undefined){
+async function refreshTokens(config: InternalAxiosRequestConfig|undefined) {
 
     const accessToken = getCookie("access_token");
     const refreshToken = getCookie("refresh_token");
 
     //API 서버에게 토큰들을 갱신해 주세요 라고 말해 주어야 함
+    const header = {headers:
+            {'Authorization': `Bearer ${accessToken}`,'Content-Type': 'application/x-www-form-urlencoded'}
+    }
 
     //새로운 accessToken과 새로운 refreshToken을 받아야 함
+    const res = await axios.post(
+        'http://localhost:8080/api/v1/member/refresh', {refreshToken}, header)
 
-    //다시 쿠기로 저장
+    console.log(res.data)
+    // 다시 쿠키로 저장
 
-    //다 됐으면 원래 호출하려고 했던 요청을 재시도
+    // 다 됐으면 원래 호출하려고 했던 요청을 재시도
 
 
 
 }
 
-
 function getErrorMsg(err: AxiosError){
-    const errorObj = err.response?.data as { msg?: string }
+    const errorObj = err.response?.data as { error?: string }
 
-    if (errorObj?.msg) {
-        const errorMsg: string = errorObj.msg
+    if (errorObj?.error) {
+        const errorMsg: string = errorObj.error
         console.log("에러 메시지:", errorMsg)
         return errorMsg
     }
