@@ -17,7 +17,7 @@ const LoginComponent = () => {
             const refreshToken = res[1]
 
             setCookie('access_token', accessToken,1)
-            setCookie('refresh_token', refreshToken, 7)
+            setCookie('refresh_token',  refreshToken, 7)
 
         })
     };

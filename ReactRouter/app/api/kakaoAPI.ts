@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const rest_api_key:string ='580d11f3088c34e1b2f1115b3269a2e9'
+const rest_api_key:string ='759e4d6749a0455ed0e7ffd6cb37989d'
 const redirect_uri = 'http://localhost:5173/member/kakao'
 
 const auth_code_path = `https://kauth.kakao.com/oauth/authorize`
