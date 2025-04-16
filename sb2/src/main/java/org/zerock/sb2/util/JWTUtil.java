@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.Map;
 
 
+
 @Component
 @Log4j2
 public class JWTUtil {
     private static String key = "1234567890123456789012345678901234567890";
-
 
     public String createToken(Map<String, Object> valueMap, int min) {
 
@@ -39,7 +39,6 @@ public class JWTUtil {
                 .compact();
 
     }
-
 
     public Map<String, Object> validateToken(String token) {
 

@@ -1,32 +1,40 @@
 import {useQuery} from "@tanstack/react-query";
-import { useSearchParams } from "react-router";
 import {testTodoList} from "~/api/todoAPI";
+import {Navigate, useSearchParams} from "react-router";
 
 
 function TodoListComponent () {
 
-    const[searchParms] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
-    const pageStr = searchParms.get("page") || "1"
-    const sizeStr = searchParms.get("size") || "10"
+    const pageStr = searchParams.get("page") || "1"
+    const sizeStr = searchParams.get("size") || "10"
 
-    console.log("PageStr:" + pageStr, "sizeStr: "+ sizeStr);
+    console.log("pageStr: ", pageStr," sizeStr: ", sizeStr)
 
     // Queries
     const query = useQuery({
-        queryKey: ['todos',pageStr,sizeStr],
-        queryFn: () => testTodoList(pageStr,sizeStr),
-        staleTime: 10 *60 * 1000, //신선도 판단 기준
+        queryKey: ['todos', pageStr, sizeStr],
+        queryFn: () => testTodoList(pageStr, sizeStr),
+        staleTime: 10 * 60 * 1000,
+        retry: false//신선도 판단 기준
     })
 
     const {isFetching, data, error } = query
+
+    if(error){
+        return(
+            <Navigate to="/member/login" replace />
+        )
+    }
 
     return (
         <div>
             <div className={'text-4xl'}>Todo List Component </div>
             <div className={'text-3xl bg-amber-600'}> {isFetching && <h1>Loading.........</h1>}</div>
 
-            {data && <div className={'text-2xl'}>List 출력</div>}
+            {data &&  <div className={'text-2xl'}>List 출력</div>}
+
         </div>
     )
 }
