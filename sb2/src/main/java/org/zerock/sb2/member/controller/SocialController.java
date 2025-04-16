@@ -18,7 +18,7 @@ public class SocialController {
 
     private final JWTUtil jwtUtil;
 
-    @PostMapping("api/v1/memeber/login")
+    @PostMapping("api/v1/member/login")
     public ResponseEntity<String[]> login(
             @RequestParam("uid") String uid,
             @RequestParam("upw") String upw){
@@ -34,7 +34,6 @@ public class SocialController {
         String[] result = new String[]{accessToken, refreshToken};
 
         return ResponseEntity.ok(result);
-
     }
 
     @RequestMapping("/api/v1/member/kakao")

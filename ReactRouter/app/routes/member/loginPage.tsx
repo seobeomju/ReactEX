@@ -1,6 +1,7 @@
  import React from "react"
 import { Link } from "react-router";
 import { getKakaoLoginLink } from "~/api/kakaoAPI";
+import LoginComponent from "~/components/member/loginComponent";
 
  function LoginPage(){
     
@@ -10,6 +11,7 @@ import { getKakaoLoginLink } from "~/api/kakaoAPI";
         <div>
             <div className={'text-4xl'}>LoginPage</div>
 
+            <LoginComponent/>
             <Link to={kakaoLink}>카카오</Link>
         </div>
     )
