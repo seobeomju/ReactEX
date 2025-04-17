@@ -60,7 +60,10 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         }
 
         //부정의 부정 -> 긍정
-        return false;
+        //return false;
+
+        //개발 초기 단계 JWT체크 안 하겠음
+        return true;
     }
 
     @Override
