@@ -5,6 +5,5 @@ interface Todo {
     complete: boolean;
     writer: string;
     dueDate: string
-
-
 }
+
