@@ -1,3 +1,4 @@
+import {TodoListComponent} from "@/app/components/todo/listComponent";
 
 export const dynamic = 'force-dynamic';
 
@@ -26,6 +27,7 @@ async function TodoListPage({searchParams}: {searchParams:Promise<any>} ) {
 
         <div>
             <div className={'text-4xl'}>Todo List Page</div>
+            <TodoListComponent serverData={data}/>
         </div>
     )
 
