@@ -18,3 +18,11 @@ interface PageResponse<T> {
     pageRequestDTO: PageRequestDTO
 
 }
+
+interface MemberInfo{
+
+    mid: string,
+    accessToken: string | undefined,
+    refreshToken: string | undefined,
+
+}
